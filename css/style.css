@@ -47,6 +47,7 @@ header,
 
 #search img {
   min-width: 42px;
+  cursor: pointer;
 }
 
 #frame {
@@ -129,13 +130,8 @@ header,
   display: flex;
 }
 
-/* .stat-desc,
-.stat-value {
-  width: 35%;
-} */
-
 .stat-desc {
-  /* text-align: right; */
+  text-align: right;
   font-weight: 700;
   padding-right: 15px;
   border-right: 2px solid black;
