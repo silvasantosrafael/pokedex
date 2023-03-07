@@ -11,7 +11,7 @@ body {
   background-color: rgb(233, 233, 233);
 }
 
-#title h1{
+#title h1 {
   font-size: 4rem;
   color: rgb(255, 255, 255);
 }
@@ -33,7 +33,7 @@ header,
   gap: 6px;
 }
 
-#search input{
+#search input {
   font-size: 1.2rem;
   font-weight: 700;
   color: rgb(90, 90, 90);
@@ -46,6 +46,126 @@ header,
 }
 
 #search img {
-  width: 45px;
+  min-width: 42px;
 }
 
+#frame {
+  display: flex;
+  justify-content: center;
+}
+
+#pokedex {
+  margin-top: 40px;
+  min-height: 640px;
+  min-width: 540px;
+  border-radius: 6px;
+  background-color: rgb(90, 90, 90);
+  padding: 6px;
+}
+
+#header-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+}
+
+#top {
+  height: 40%;
+  background: url(../assets/pokeball.png);
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+#image-placeholder {
+  display: flex;
+  justify-content: center;
+}
+
+#pokemon-image {
+  width: 250px;
+  height: 250px;
+  /* border: 1px solid black; */
+}
+
+#pokemon-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60%;
+  padding-top: 60px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 6px;
+}
+
+#types {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.type {
+  background: rgb(249, 207, 48);
+  color: rgb(255, 255, 255);
+  padding: 6px 16px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+#stats {
+  margin-top: 25px;
+  width: 95%;
+}
+
+#stats h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.stat-row {
+  display: flex;
+}
+
+/* .stat-desc,
+.stat-value {
+  width: 35%;
+} */
+
+.stat-desc {
+  /* text-align: right; */
+  font-weight: 700;
+  padding-right: 15px;
+  border-right: 2px solid black;
+  min-width: 160px;
+}
+
+.stat-value {
+  width: 60px;
+  justify-content: left;
+  padding-left: 15px;
+  padding-right: 12px;
+  font-weight: 700;
+}
+
+.stat-bar {
+  width: 60%;
+  display: flex;
+  align-items: center;
+}
+
+.bar-outer {
+  display: flex;
+  width: 255%;
+  height: 7px;
+  border-radius: 4px;
+  background-color: rgba(249, 207, 48, 0.3);
+}
+
+.bar-inner {
+  border-radius: 4px;
+  width: 35%;
+  background-color: rgb(249, 207, 48);
+}

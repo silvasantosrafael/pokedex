@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
   <title>Pokédex</title>
   <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
   <header>
     <div id="title">
@@ -17,5 +19,82 @@
     <input id="input-text" type="text" placeholder="Input a pokemon name or ID">
     <img src="./assets/search.png" alt="search">
   </div>
+  <div id="frame">
+    <div id="pokedex">
+      <div id="top">
+        <div id="header-top">
+          <span id="pokemon-name">PIKACHU</span>
+          <span id="pokemon-id">#025</span>
+        </div>
+        <div id="image-placeholder">
+          <img id="pokemon-image" src="./assets/25.png" alt="pokemon-image">
+        </div>
+      </div>
+      <div id="pokemon-data">
+        <div id="types">
+          <span class="type">Electric</span>
+          <span class="type">Normal</span>
+        </div>
+        <div id="stats">
+          <h3 id="base-stats">Base Stats</h3>
+          <div class="stat-row">
+            <div class="stat-desc">HP</div>
+            <div class="stat-value">035</div>
+            <div class="stat-bar">
+              <div class="bar-outer">
+                <div class="bar-inner"></div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-desc">ATTACK</div>
+            <div class="stat-value">055</div>
+            <div class="stat-bar">
+              <div class="bar-outer">
+                <div class="bar-inner"></div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-desc">DEFENSE</div>
+            <div class="stat-value">040</div>
+            <div class="stat-bar">
+              <div class="bar-outer">
+                <div class="bar-inner"></div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-desc">SPECIAL-ATTACK</div>
+            <div class="stat-value">050</div>
+            <div class="stat-bar">
+              <div class="bar-outer">
+                <div class="bar-inner"></div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-desc">SPECIAL-DEFENSE</div>
+            <div class="stat-value">050</div>
+            <div class="stat-bar">
+              <div class="bar-outer">
+                <div class="bar-inner"></div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-desc">SPEED</div>
+            <div class="stat-value">035</div>
+            <div class="stat-bar">
+              <div class="bar-outer">
+                <div class="bar-inner"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
