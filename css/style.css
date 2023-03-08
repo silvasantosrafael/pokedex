@@ -1,5 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
+:root {
+  --rock:     rgb(182, 158, 49);
+  --ghost:    rgb(112, 85, 155);
+  --steel:    rgb(183, 185, 208);
+  --water:    rgb(100, 147, 235);
+  --grass:    rgb(116, 203, 72);
+  --psychic:  rgb(251, 85, 132);
+  --ice:      rgb(154, 214, 223);
+  --dark:     rgb(117, 87, 76);
+  --fairy:    rgb(230, 158, 172);
+  --normal:   rgb(170, 166, 127);
+  --fighting: rgb(193, 34, 57);
+  --flying:   rgb(168, 145, 236);
+  --poison:   rgb(164, 62, 158);
+  --ground:   rgb(222, 193, 107);
+  --bug:      rgb(167, 183, 35);
+  --fire:     rgb(245, 125, 49);
+  --electric: rgb(249, 207, 48);
+  --dragon:   rgb(112, 55, 255);
+  --default:  rgb(90, 90, 90);
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -105,15 +128,18 @@ header,
   display: flex;
   justify-content: center;
   gap: 10px;
+  text-transform: capitalize;
 }
 
 .type {
-  background: rgb(249, 207, 48);
+  background: var(--default);
   color: rgb(255, 255, 255);
   padding: 6px 16px;
   border-radius: 14px;
   font-size: 1rem;
   font-weight: 700;
+  width: 100px;
+  text-align: center;
 }
 
 #stats {
@@ -157,11 +183,11 @@ header,
   width: 255%;
   height: 7px;
   border-radius: 4px;
-  background-color: rgba(249, 207, 48, 0.3);
+  background-color: rgba(88, 88, 88, 0.3);
 }
 
 .bar-inner {
   border-radius: 4px;
   width: 35%;
-  background-color: rgb(249, 207, 48);
+  background-color: rgb(95, 95, 95);
 }
