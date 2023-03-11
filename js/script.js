@@ -97,7 +97,7 @@ const calculateStatValue = value => {
 const insertBaseStats = pokemon => {
   stats.innerHTML = `<h3 id="base-stats" style="color: var(--${pokemon.types[0].type.name})">Base Stats</h3>`
   pokemon.stats.forEach(st => {
-    const templateHTML = 
+    stats.innerHTML +=  
     `<div class="stat-row">
       <div class="stat-desc" style="color: var(--${pokemon.types[0].type.name})">${st.stat.name.toUpperCase()}</div>
         <div class="stat-value">${formattedNumeral(st.base_stat)}</div>
@@ -107,7 +107,6 @@ const insertBaseStats = pokemon => {
         </div>
       </div>
     </div>`
-    stats.innerHTML += templateHTML
   })
 }
 
@@ -133,7 +132,7 @@ const validateText = text => {
  * @returns Retorna o numero no formato 000
  */
 const formattedNumeral = number => {
-  return number.toString().padStart(3, 0) 
+  return number.toString().padStart(3, 0)
 }
 
 /**
@@ -156,11 +155,11 @@ imgSearch.addEventListener('click', async () => {
   if (!validateText(value)) {
     return
   }
-  inputText.value = ''
   const pokemon = await fetchPokemon(value)
   setPokedexAccentColor(pokemon)
   insertNameAndIdPokemon(pokemon)
   insertPokemonImage(pokemon)
   insertPokemonTypes(pokemon)
   insertBaseStats(pokemon)
+  inputText.value = ''
 })
