@@ -6,6 +6,7 @@ const imagePlaceholder = document.querySelector('#image-placeholder')
 const types = document.querySelector('#types')
 const stats = document.querySelector('#stats')
 const pokedex = document.querySelector('#pokedex')
+const baseStat = document.querySelector('#base-stat')
 
 const MAX_STAT_VALUE = 255
 
@@ -90,24 +91,69 @@ const calculateStatValue = value => {
 }
 
 /**
+ * Método que cria os elementos HTML e insere as estatísticas básicas do pokémon
+ * 
+ * @param pokemon Dados do pokemon obtidos da API
+ */
+const createTemplateHTMLAndSetPokemonBaseStats = pokemon => {
+  stats.innerHTML = `<h3>Base Stats</h3>`
+  pokemon.stats.forEach(st => {
+    stats.innerHTML +=
+      `<div class="stat-row">
+    <div class="stat-desc"></div>
+    <div class="stat-value"></div>
+    <div class="stat-bar">
+     <div class="bar-outer">
+       <div class="bar-inner"></div>
+     </div>
+    </div>
+   </div>`
+  })
+
+  setPokemonBaseStats(pokemon)
+}
+
+/**
+ * Método que insere as estatísticas básicas do pokémon
+ * 
+ * @param pokemon Dados do pokemon obtidos da API
+ */
+const setPokemonBaseStats = pokemon => {
+  const titleH3 = document.querySelector('h3')
+  const statDesc = document.querySelectorAll('.stat-desc')
+  const statValue = document.querySelectorAll('.stat-value')
+  const barOuter = document.querySelectorAll('.bar-outer')
+  const barInner = document.querySelectorAll('.bar-inner')
+
+  titleH3.style.color = `var(--${pokemon.types[0].type.name})`
+  pokemon.stats.forEach((st, index) => {
+    statDesc[index].innerText = `${st.stat.name.toUpperCase()}`
+    statDesc[index].style.color = `var(--${pokemon.types[0].type.name})`
+    statValue[index].innerText = `${formattedNumeral(st.base_stat)}`
+    barOuter[index].style.backgroundColor = `var(--${pokemon.types[0].type.name + 'Alpha'})`
+    barInner[index].style.backgroundColor = `var(--${pokemon.types[0].type.name})`
+    barInner[index].style.width = `${calculateStatValue(st.base_stat)}%`
+  })
+}
+
+/**
+ * Método que valida se a div possui elementos filhos
+ * 
+ * @returns Retorna true se houver(em) elementos filhos e false caso contrário 
+ */
+const validateBaseStatshasFilled = () => !stats.hasChildNodes()
+
+/**
  * Método que insere as estatísticas básicas do pokémon
  * 
  * @param pokemon Dados do pokémon obtidos da API
  */
-const insertBaseStats = pokemon => {
-  stats.innerHTML = `<h3 id="base-stats" style="color: var(--${pokemon.types[0].type.name})">Base Stats</h3>`
-  pokemon.stats.forEach(st => {
-    stats.innerHTML +=  
-    `<div class="stat-row">
-      <div class="stat-desc" style="color: var(--${pokemon.types[0].type.name})">${st.stat.name.toUpperCase()}</div>
-        <div class="stat-value">${formattedNumeral(st.base_stat)}</div>
-          <div class="stat-bar">
-            <div class="bar-outer" style="background-color: var(--${pokemon.types[0].type.name +'Alpha'})">
-            <div class="bar-inner" style="width: ${calculateStatValue(st.base_stat)}%; background-color: var(--${pokemon.types[0].type.name})"></div>
-        </div>
-      </div>
-    </div>`
-  })
+const insertPokemonBaseStats = pokemon => {
+  if (validateBaseStatshasFilled()) {
+    createTemplateHTMLAndSetPokemonBaseStats(pokemon)
+  } else {
+    setPokemonBaseStats(pokemon)
+  }
 }
 
 /**
@@ -160,6 +206,6 @@ imgSearch.addEventListener('click', async () => {
   insertNameAndIdPokemon(pokemon)
   insertPokemonImage(pokemon)
   insertPokemonTypes(pokemon)
-  insertBaseStats(pokemon)
+  insertPokemonBaseStats(pokemon)
   inputText.value = ''
 })
