@@ -141,7 +141,7 @@ const setPokemonBaseStats = pokemon => {
  * 
  * @returns Retorna true se houver(em) elementos filhos e false caso contrário 
  */
-const validateBaseStatshasFilled = () => !stats.hasChildNodes()
+const validateBaseStatsHasFilled = () => !stats.hasChildNodes()
 
 /**
  * Método que insere as estatísticas básicas do pokémon
@@ -149,7 +149,7 @@ const validateBaseStatshasFilled = () => !stats.hasChildNodes()
  * @param pokemon Dados do pokémon obtidos da API
  */
 const insertPokemonBaseStats = pokemon => {
-  if (validateBaseStatshasFilled()) {
+  if (validateBaseStatsHasFilled()) {
     createTemplateHTMLAndSetPokemonBaseStats(pokemon)
   } else {
     setPokemonBaseStats(pokemon)
