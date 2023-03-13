@@ -7,8 +7,14 @@ const types = document.querySelector('#types')
 const stats = document.querySelector('#stats')
 const pokedex = document.querySelector('#pokedex')
 const baseStat = document.querySelector('#base-stat')
+const pokemonData = document.querySelector('#pokemon-data')
 
 const MAX_STAT_VALUE = 255
+const POKEMON_NOT_FOUND = 'Pokémon not found'
+const NO_TEXT_INPUT = 'Insert a pokémon name or ID'
+
+
+const validateResponseStatus = response => response.status != 200
 
 /**
  * Método que obtém os dados do pokémon
@@ -18,11 +24,11 @@ const MAX_STAT_VALUE = 255
  */
 const fetchPokemon = async value => {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${value}`)
-  if (response.status != 200) {
-    alert('Pokemon not found')
+  if (validateResponseStatus(response)) {
+    messageModal(POKEMON_NOT_FOUND)
   }
-  const pokemonData = response.json()
-  return pokemonData
+  const pokemon = response.json()
+  return pokemon
 
 }
 
@@ -165,7 +171,7 @@ const insertPokemonBaseStats = pokemon => {
  */
 const validateText = text => {
   if (text.length < 1) {
-    alert('Insert a pokémon name or ID')
+    messageModal(NO_TEXT_INPUT)
     return false
   }
   return true
@@ -177,9 +183,7 @@ const validateText = text => {
  * @param number Número que será formatado
  * @returns Retorna o numero no formato 000
  */
-const formattedNumeral = number => {
-  return number.toString().padStart(3, 0)
-}
+const formattedNumeral = number => number.toString().padStart(3, 0)
 
 /**
  * Método que formata o texto obtido no input
@@ -187,10 +191,56 @@ const formattedNumeral = number => {
  * @returns Texto formatado digitado no input
  */
 const formattedInputText = () => {
-  const value = inputText.value.toLowerCase().split(' ').join('-')
+  const value = inputText.value.toLowerCase().trim().split(' ').join('-')
 
   return value
 }
+
+/**
+ * Método que insere um texto no modal
+ * 
+ * @param value Texto que será inserido no modal
+ */
+const insertMessageModal = value => {
+  const modalBody = document.querySelector('.modal-body')
+  modalBody.innerText = value
+}
+
+/**
+ * Método que exibe ou exibe o modal
+ */
+const toggleModal = () => {
+  const fade = document.querySelector('#fade')
+  const modal = document.querySelector('#modal')
+  fade.classList.toggle('hide')
+  modal.classList.toggle('hide')
+}
+
+/**
+ * Método que oculta o modal
+ */
+const hideMessageModal = () => {
+  const closeModal = document.querySelector('#close-modal')
+  closeModal.addEventListener('click', toggleModal)
+}
+
+/**
+ * Método que cria a mensagem modal
+ * 
+ * @param value Texto que será utilizado no modal
+ */
+const messageModal = value => {
+  insertMessageModal(value)
+  toggleModal()
+  hideMessageModal()
+}
+
+/**
+ * Método que realiza a limpeza do campo input text
+ * 
+ * @returns Retorna uma string vazia para o valor do input
+ */
+const cleanInputText = () => inputText.value = ''
 
 /**
  * Listener de evento na imagem de lupa para capturar
@@ -207,5 +257,5 @@ imgSearch.addEventListener('click', async () => {
   insertPokemonImage(pokemon)
   insertPokemonTypes(pokemon)
   insertPokemonBaseStats(pokemon)
-  inputText.value = ''
+  cleanInputText()
 })

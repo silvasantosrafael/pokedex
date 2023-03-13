@@ -1,49 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
 
 :root {
-  --rock:         rgb(182, 158, 49);
-  --rockAlpha:    rgba(182, 158, 49, .3);
-  --ghost:        rgb(112, 85, 155);
-  --ghostAlpha:   rgba(112, 85, 155, .3);
-  --steel:        rgb(183, 185, 208);
-  --steelAlpha:   rgba(183, 185, 208, .3);
-  --water:        rgb(100, 147, 235);
-  --waterAlpha:   rgba(100, 147, 235, .3);
-  --grass:        rgb(116, 203, 72);
-  --grassAlpha:   rgba(116, 203, 72, .3);
-  --psychic:      rgb(251, 85, 132);
+  --rock: rgb(182, 158, 49);
+  --rockAlpha: rgba(182, 158, 49, .3);
+  --ghost: rgb(112, 85, 155);
+  --ghostAlpha: rgba(112, 85, 155, .3);
+  --steel: rgb(183, 185, 208);
+  --steelAlpha: rgba(183, 185, 208, .3);
+  --water: rgb(100, 147, 235);
+  --waterAlpha: rgba(100, 147, 235, .3);
+  --grass: rgb(116, 203, 72);
+  --grassAlpha: rgba(116, 203, 72, .3);
+  --psychic: rgb(251, 85, 132);
   --psychicAlpha: rgba(251, 85, 132, .3);
-  --ice:          rgb(154, 214, 223);
-  --iceAlpha:     rgba(154, 214, 223, .3);
-  --dark:         rgb(117, 87, 76);
-  --darkAlpha:    rgba(117, 87, 76, .3);
-  --fairy:        rgb(230, 158, 172);
-  --fairyAlpha:   rgba(230, 158, 172, .3);
-  --normal:       rgb(170, 166, 127);
-  --normalAlpha:  rgba(170, 166, 127, .3);
-  --fighting:     rgb(193, 34, 57);
-  --fightingAlpha:rgba(193, 34, 57, .3);
-  --flying:       rgb(168, 145, 236);
-  --flyingAlpha:  rgba(168, 145, 236, .3);
-  --poison:       rgb(164, 62, 158);
-  --poisonAlpha:  rgba(164, 62, 158, .3);
-  --ground:       rgb(222, 193, 107);
-  --groundAlpha:  rgba(222, 193, 107, .3);
-  --bug:          rgb(167, 183, 35);
-  --bugAlpha:     rgba(167, 183, 35, .3);
-  --fire:         rgb(245, 125, 49);
-  --fireAlpha:    rgba(245, 125, 49, .3);
-  --electric:     rgb(249, 207, 48);
-  --electricAlpha:rgba(249, 207, 48, .3);
-  --dragon:       rgb(112, 55, 255);
-  --dragonAlpha:  rgba(112, 55, 255, .3);
-  
-  --colorDefault:     rgb(90, 90, 90);
-  --bodyColor:        rgb(233, 233, 233);
-  --fontColorWhite:   rgb(255, 255, 255);
+  --ice: rgb(154, 214, 223);
+  --iceAlpha: rgba(154, 214, 223, .3);
+  --dark: rgb(117, 87, 76);
+  --darkAlpha: rgba(117, 87, 76, .3);
+  --fairy: rgb(230, 158, 172);
+  --fairyAlpha: rgba(230, 158, 172, .3);
+  --normal: rgb(170, 166, 127);
+  --normalAlpha: rgba(170, 166, 127, .3);
+  --fighting: rgb(193, 34, 57);
+  --fightingAlpha: rgba(193, 34, 57, .3);
+  --flying: rgb(168, 145, 236);
+  --flyingAlpha: rgba(168, 145, 236, .3);
+  --poison: rgb(164, 62, 158);
+  --poisonAlpha: rgba(164, 62, 158, .3);
+  --ground: rgb(222, 193, 107);
+  --groundAlpha: rgba(222, 193, 107, .3);
+  --bug: rgb(167, 183, 35);
+  --bugAlpha: rgba(167, 183, 35, .3);
+  --fire: rgb(245, 125, 49);
+  --fireAlpha: rgba(245, 125, 49, .3);
+  --electric: rgb(249, 207, 48);
+  --electricAlpha: rgba(249, 207, 48, .3);
+  --dragon: rgb(112, 55, 255);
+  --dragonAlpha: rgba(112, 55, 255, .3);
+
+  --colorDefault: rgb(90, 90, 90);
+  --bodyColor: rgb(233, 233, 233);
+  --fontColorWhite: rgb(255, 255, 255);
   --borderColorInput: rgb(158, 158, 158);
   --backgroundHeader: rgb(150, 12, 12);
-  --backgroundWhite:  rgb(255, 255, 255);
+  --backgroundWhite: rgb(255, 255, 255);
+  --boxShadow: rgba(0, 0, 0, 0.5);
+  --backgroundFade: rgba(0, 0, 0, 0.6);
 }
 
 * {
@@ -68,7 +70,7 @@ header {
   padding: 10px 0;
   margin-bottom: 40px;
   background-color: var(--backgroundHeader);
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5)
+  box-shadow: 1px 2px 3px var(--boxShadow);
 }
 
 header,
@@ -196,6 +198,7 @@ header,
   padding-right: 15px;
   min-width: 160px;
   border-right: 2px solid var(--borderColorInput);
+  transition: color .3s ease-in-out;
 }
 
 .stat-value {
@@ -223,4 +226,71 @@ header,
 .bar-inner {
   border-radius: 4px;
   transition: .3s ease-in-out;
+}
+
+button {
+  padding: 6px 12px;
+  background-color: var(--backgroundHeader);
+  color: var(--fontColorWhite);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.9;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 1;
+}
+
+#modal.hide,
+#fade.hide {
+  opacity: 0;
+  z-index: -1;
+}
+
+#fade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--backgroundFade);
+  z-index: 5;
+  transition: 0.3s;
+}
+
+#modal {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  background-color: var(--bodyColor);
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 120px;
+  max-width: 90%;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid var(--borderColorInput);
+  z-index: 10;
+  transition: 0.3s;
+}
+
+.modal-body {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 10px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+}
+
+#modal.hide {
+  top: 35%;
 }
