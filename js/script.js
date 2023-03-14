@@ -14,26 +14,28 @@ const POKEMON_NOT_FOUND = 'Pokémon not found'
 const NO_TEXT_INPUT = 'Insert a pokémon name or ID'
 
 
-const validateResponseStatus = response => response.status != 200
+const validateResponseStatus = response => response.status == 200
 
 /**
- * Método que obtém os dados do pokémon
+ * Função que obtém os dados do pokémon
  * 
  * @param value Nome ou ID do pokemon
  * @returns Retorna os dados do pokemon
  */
 const fetchPokemon = async value => {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${value}`)
-  if (validateResponseStatus(response)) {
+  if (!validateResponseStatus(response)) {
     messageModal(POKEMON_NOT_FOUND)
+    
+    return null
   }
   const pokemon = response.json()
-  return pokemon
 
+  return pokemon
 }
 
 /**
- * Método que define a cor de destaque baseado no primeiro Tipo do pokémon
+ * Função que define a cor de destaque baseado no primeiro Tipo do pokémon
  * 
  * @param pokemon Dados do pokemon obtidos da API
  */
@@ -42,7 +44,7 @@ const setPokedexAccentColor = pokemon => {
 }
 
 /**
- * Método que insere e formata o nome e ID do pokémon
+ * Função que insere e formata o nome e ID do pokémon
  * 
  * @param pokemon Dados do pokemon obtidos da API
  */
@@ -52,7 +54,7 @@ const insertNameAndIdPokemon = pokemon => {
 }
 
 /**
- * Método que insere a imagem do pokémon
+ * Função que insere a imagem do pokémon
  * 
  * @param pokemon Dados do pokemon obtidos da API
  */
@@ -67,7 +69,7 @@ const insertPokemonImage = pokemon => {
 }
 
 /**
- * Método que insere o(s) tipo(s) do pokémon
+ * Função que insere o(s) tipo(s) do pokémon
  * 
  * @param pokemon Dados do pokemon obtidos da API
  */
@@ -83,7 +85,7 @@ const insertPokemonTypes = pokemon => {
 }
 
 /**
- * Método que calcula o valor correto para inserir
+ * Função que calcula o valor correto para inserir
  * 
  * @param value Valor base stat do pokémon
  * @returns Retorna o valor calculado
@@ -97,7 +99,7 @@ const calculateStatValue = value => {
 }
 
 /**
- * Método que cria os elementos HTML e insere as estatísticas básicas do pokémon
+ * Função que cria os elementos HTML e insere as estatísticas básicas do pokémon
  * 
  * @param pokemon Dados do pokemon obtidos da API
  */
@@ -120,7 +122,7 @@ const createTemplateHTMLAndSetPokemonBaseStats = pokemon => {
 }
 
 /**
- * Método que insere as estatísticas básicas do pokémon
+ * Função que insere as estatísticas básicas do pokémon
  * 
  * @param pokemon Dados do pokemon obtidos da API
  */
@@ -143,14 +145,14 @@ const setPokemonBaseStats = pokemon => {
 }
 
 /**
- * Método que valida se a div possui elementos filhos
+ * Função que valida se a div possui elementos filhos
  * 
  * @returns Retorna true se houver(em) elementos filhos e false caso contrário 
  */
 const validateBaseStatsHasFilled = () => !stats.hasChildNodes()
 
 /**
- * Método que insere as estatísticas básicas do pokémon
+ * Função que insere as estatísticas básicas do pokémon
  * 
  * @param pokemon Dados do pokémon obtidos da API
  */
@@ -163,7 +165,7 @@ const insertPokemonBaseStats = pokemon => {
 }
 
 /**
- * Método que verifica se o campo texto input está vazio
+ * Função que verifica se o campo texto input está vazio
  * 
  * @param text Texto digitado no input
  * @returns true caso o comprimento do texto seja maior que 1 e
@@ -172,13 +174,15 @@ const insertPokemonBaseStats = pokemon => {
 const validateText = text => {
   if (text.length < 1) {
     messageModal(NO_TEXT_INPUT)
+
     return false
   }
+
   return true
 }
 
 /**
- * Método que formata o numero para 3 casas decimais
+ * Função que formata o numero para 3 casas decimais
  * 
  * @param number Número que será formatado
  * @returns Retorna o numero no formato 000
@@ -186,7 +190,7 @@ const validateText = text => {
 const formattedNumeral = number => number.toString().padStart(3, 0)
 
 /**
- * Método que formata o texto obtido no input
+ * Função que formata o texto obtido no input
  * 
  * @returns Texto formatado digitado no input
  */
@@ -197,7 +201,7 @@ const formattedInputText = () => {
 }
 
 /**
- * Método que insere um texto no modal
+ * Função que insere um texto no modal
  * 
  * @param value Texto que será inserido no modal
  */
@@ -207,7 +211,7 @@ const insertMessageModal = value => {
 }
 
 /**
- * Método que exibe ou exibe o modal
+ * Função que exibe ou exibe o modal
  */
 const toggleModal = () => {
   const fade = document.querySelector('#fade')
@@ -217,7 +221,7 @@ const toggleModal = () => {
 }
 
 /**
- * Método que oculta o modal
+ * Função que oculta o modal
  */
 const hideMessageModal = () => {
   const closeModal = document.querySelector('#close-modal')
@@ -225,7 +229,7 @@ const hideMessageModal = () => {
 }
 
 /**
- * Método que cria a mensagem modal
+ * Função que cria a mensagem modal
  * 
  * @param value Texto que será utilizado no modal
  */
@@ -236,26 +240,47 @@ const messageModal = value => {
 }
 
 /**
- * Método que realiza a limpeza do campo input text
+ * Função que realiza a limpeza do campo input text
  * 
  * @returns Retorna uma string vazia para o valor do input
  */
 const cleanInputText = () => inputText.value = ''
 
 /**
- * Listener de evento na imagem de lupa para capturar
- * o nome do pokémon ou ID
+ * Função principal que invoca as demais funções
+ * 
+ * @returns Retorna para a função chamadora
  */
-imgSearch.addEventListener('click', async () => {
+const init = async () => {
   const value = formattedInputText()
   if (!validateText(value)) {
     return
   }
   const pokemon = await fetchPokemon(value)
+  if (pokemon == null) {
+    return
+  }
   setPokedexAccentColor(pokemon)
   insertNameAndIdPokemon(pokemon)
   insertPokemonImage(pokemon)
   insertPokemonTypes(pokemon)
   insertPokemonBaseStats(pokemon)
   cleanInputText()
+}
+
+/**
+ * Listener de evento na imagem de lupa para capturar
+ * o nome do pokémon ou ID
+ */
+imgSearch.addEventListener('click', () => {
+  init()
+})
+
+/**
+ * Listener de evento no input que captura se o usuário pressionou a tecla Enter
+ */
+inputText.addEventListener('keydown', event => {
+  if (event.keyCode === 13) {
+    init()
+  }
 })
