@@ -104,7 +104,7 @@ const calculateStatValue = value => {
  * @param pokemon Dados do pokemon obtidos da API
  */
 const createTemplateHTMLAndSetPokemonBaseStats = pokemon => {
-  stats.innerHTML = `<h3>Base Stats</h3>`
+  stats.innerHTML = `<h3 id="sub-title-base-stat">Base Stats</h3>`
   pokemon.stats.forEach(st => {
     stats.innerHTML +=
       `<div class="stat-row">
@@ -127,7 +127,7 @@ const createTemplateHTMLAndSetPokemonBaseStats = pokemon => {
  * @param pokemon Dados do pokemon obtidos da API
  */
 const setPokemonBaseStats = pokemon => {
-  const titleH3 = document.querySelector('h3')
+  const titleH3 = document.querySelector('#sub-title-base-stat')
   const statDesc = document.querySelectorAll('.stat-desc')
   const statValue = document.querySelectorAll('.stat-value')
   const barOuter = document.querySelectorAll('.bar-outer')
