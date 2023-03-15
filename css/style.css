@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap');
 
 :root {
   --rock: rgb(182, 158, 49);
@@ -73,31 +73,37 @@ header {
   box-shadow: 1px 2px 3px var(--boxShadow);
 }
 
-header,
-#search {
+header {
   display: flex;
   justify-content: center;
 }
 
 #search {
+  display: flex;
   align-items: center;
+  width: 370px;
+  background-color: var(--backgroundHeader);
   gap: 6px;
+  margin: auto;
+  border-radius: 10px;
+  border: 1px solid var(--borderColorInput);
 }
 
 #search input {
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--colorDefault);
-  min-width: 320px;
+  width: 320px;
   height: 50px;
   padding: 8px;
   outline: 0;
   border: 1px solid var(--borderColorInput);
-  border-radius: 6px;
+  border: none;
+  border-radius: 8px 0 0 8px;
 }
 
 #search img {
-  min-width: 42px;
+  width: 38px;
   cursor: pointer;
 }
 
@@ -110,7 +116,7 @@ header,
   margin-top: 40px;
   min-height: 670px;
   min-width: 540px;
-  border-radius: 6px;
+  border-radius: 12px;
   background-color: var(--colorDefault);
   padding: 6px;
   transition: background-color 0.3s ease-in-out;
@@ -139,26 +145,68 @@ header,
 }
 
 #pokemon-image {
-  width: 240px;
-  height: 240px;
-  /* border: 1px solid black; */
+  width: 220px;
+  height: 220px;
 }
 
 #pokemon-data {
+  height: 60%;
   margin-top: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 60%;
-  padding-top: 60px;
+  justify-content: space-evenly;
   background-color: var(--fontColorWhite);
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 #about {
-  transform: translateY(-40px);
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
 
+#sub-title-about {
+  text-align: center;
+}
+
+#specs {
+  display: flex;
+  margin-top: 15px;
+}
+
+.characteristics {
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+}
+
+#weight {
+  border-right: 2px solid var(--borderColorInput);
+  padding-right: 50px;
+}
+
+#height {
+  padding-left: 50px;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon img {
+  height: 24px;
+  margin-right: 20px;
+}
+
+.text-characteristics {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--colorDefault);
+  font-weight: 600;
 }
 
 #types {
@@ -166,7 +214,6 @@ header,
   justify-content: center;
   gap: 10px;
   text-transform: capitalize;
-  transform: translateY(-60px);
 }
 
 .type {
@@ -180,15 +227,13 @@ header,
   text-align: center;
 }
 
-
 #stats {
-  margin-top: 15px;
   width: 95%;
 }
 
 #sub-title-base-stat {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .stat-row {
