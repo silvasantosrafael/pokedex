@@ -4,6 +4,7 @@ const pokemonName = document.querySelector('#pokemon-name')
 const pokemonId = document.querySelector('#pokemon-id')
 const imagePlaceholder = document.querySelector('#image-placeholder')
 const types = document.querySelector('#types')
+const about = document.querySelector('#about')
 const stats = document.querySelector('#stats')
 const pokedex = document.querySelector('#pokedex')
 const baseStat = document.querySelector('#base-stat')
@@ -26,7 +27,7 @@ const fetchPokemon = async value => {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${value}`)
   if (!validateResponseStatus(response)) {
     messageModal(POKEMON_NOT_FOUND)
-    
+
     return null
   }
   const pokemon = response.json()
@@ -82,6 +83,27 @@ const insertPokemonTypes = pokemon => {
     type.style.backgroundColor = `var(--${tp.type.name})`
     types.appendChild(type)
   })
+}
+
+const calculateWeightAndHeight = (weight, height) => {
+
+}
+
+const insertPokemonCharacteristics = pokemon => {
+  about.innerHTML = ''
+  about.innerHTML =
+    `<h3 id="sub-title-about">About</h3>
+    <div id="specs">
+      <div id="weight" class="characteristics">
+        <span class="icon"><img src="./assets/icon-weight.svg" alt="weight">${pokemon.weight} kg</span>
+        <span class="text-characteristics">Weight</span>
+      </div>
+      <div id="height" class="characteristics">
+        <span class="icon"><img src="./assets/icon-scaler.svg" alt="scaler">${pokemon.height} m</span>
+        <span class="text-characteristics">Height</span>
+      </div>
+    </div>
+  </div>`
 }
 
 /**
@@ -264,6 +286,7 @@ const init = async () => {
   insertNameAndIdPokemon(pokemon)
   insertPokemonImage(pokemon)
   insertPokemonTypes(pokemon)
+  insertPokemonCharacteristics(pokemon)
   insertPokemonBaseStats(pokemon)
   cleanInputText()
 }
