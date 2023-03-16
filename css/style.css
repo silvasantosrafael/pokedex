@@ -115,7 +115,7 @@ header {
 #pokedex {
   margin-top: 40px;
   min-height: 670px;
-  min-width: 540px;
+  min-width: 440px;
   border-radius: 12px;
   background-color: var(--colorDefault);
   padding: 6px;
@@ -136,7 +136,7 @@ header {
   background: url(../assets/pokeball.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 500px;
+  background-size: 430px;
 }
 
 #image-placeholder {
@@ -163,50 +163,64 @@ header {
 #about {
   display: flex;
   flex-direction: column;
-  margin: 15px 0;
+  width: 283px;
 }
 
 #sub-title-about {
   text-align: center;
+  margin-bottom: 10px;
 }
 
 #specs {
   display: flex;
-  margin-top: 15px;
+  height: 70px;
+  gap: 40px;
+  align-items: flex-end;
+}
+
+#value-weight {
+  width: 58px;
+}
+
+#value-height {
+  width: 45px;
+}
+
+#weight,
+#height {
+  height: 70px;
+  justify-content: space-around;
+}
+
+
+#line-separator {
+  width: 2px;
+  height: 70px;
+  background-color: var(--borderColorInput);
+}
+
+.text-characteristics {
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--colorDefault);
+  font-weight: 600;
 }
 
 .characteristics {
   display: flex;
   flex-direction: column;
-  width: 160px;
-}
-
-#weight {
-  border-right: 2px solid var(--borderColorInput);
-  padding-right: 40px;
-}
-
-#height {
-  padding-left: 20px;
 }
 
 .icon {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 44px;
+  gap: 20px;
 }
 
 .icon img {
   height: 24px;
-  margin-right: 20px;
-}
-
-.text-characteristics {
-  margin-top: 10px;
-  font-size: 0.8rem;
-  text-align: center;
-  color: var(--colorDefault);
-  font-weight: 600;
 }
 
 #types {
@@ -228,6 +242,8 @@ header {
 }
 
 #stats {
+  display: flex;
+  flex-direction: column;
   width: 95%;
 }
 
@@ -249,8 +265,9 @@ header {
 .stat-desc {
   text-align: right;
   font-weight: 700;
+  font-size: 0.9rem;
   padding-right: 15px;
-  min-width: 160px;
+  min-width: 146px;
   border-right: 2px solid var(--borderColorInput);
   transition: color .3s ease-in-out;
 }
@@ -261,6 +278,7 @@ header {
   padding-left: 15px;
   padding-right: 12px;
   font-weight: 700;
+  font-size: 0.9rem;
   color: var(--colorDefault);
 }
 

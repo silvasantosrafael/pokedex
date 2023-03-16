@@ -104,15 +104,25 @@ const insertPokemonCharacteristics = pokemon => {
     `<h3 id="sub-title-about">About</h3>
     <div id="specs">
       <div id="weight" class="characteristics">
-        <span class="icon"><img src="./assets/icon-weight.svg" alt="weight">${calculateWeightOrHeight(pokemon.weight)} kg</span>
+        <span class="icon">
+          <img src="./assets/icon-weight.svg" alt="weight">
+          <span id="value-weight">${calculateWeightOrHeight(pokemon.weight)} kg</span>
+        </span>
         <span class="text-characteristics">Weight</span>
       </div>
+      <div id="line-separator"></div>
       <div id="height" class="characteristics">
-        <span class="icon"><img src="./assets/icon-scaler.svg" alt="scaler">${calculateWeightOrHeight(pokemon.height)} m</span>
+        <span class="icon">
+        <img src="./assets/icon-scaler.svg" alt="scaler">
+        <span id="value-height">${calculateWeightOrHeight(pokemon.height)} m</span>
+        </span>
         <span class="text-characteristics">Height</span>
       </div>
     </div>
   </div>`
+
+  const subTitleAbout = document.querySelector('#sub-title-about')
+  subTitleAbout.style.color = `var(--${pokemon.types[0].type.name})`
 }
 
 /**
