@@ -83,7 +83,7 @@ header {
   align-items: center;
   width: 370px;
   background-color: var(--backgroundHeader);
-  gap: 6px;
+  gap: 8px;
   margin: auto;
   border-radius: 10px;
   border: 1px solid var(--borderColorInput);
@@ -103,7 +103,7 @@ header {
 }
 
 #search img {
-  width: 38px;
+  width: 30px;
   cursor: pointer;
 }
 
