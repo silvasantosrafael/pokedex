@@ -85,6 +85,7 @@ header {
   background-color: var(--backgroundHeader);
   gap: 8px;
   margin: auto;
+  margin-bottom: 30px;
   border-radius: 10px;
   border: 1px solid var(--borderColorInput);
 }
@@ -110,10 +111,16 @@ header {
 #frame {
   display: flex;
   justify-content: center;
+  width: 460px;
+  height: 690px;
+  margin: auto;
+  background-color: var(--backgroundWhite);
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0px 0px 4px;
 }
 
 #pokedex {
-  margin-top: 40px;
   min-height: 670px;
   min-width: 440px;
   border-radius: 12px;
@@ -174,29 +181,37 @@ header {
 #specs {
   display: flex;
   height: 70px;
-  gap: 40px;
-  align-items: flex-end;
+  gap: 24px;
+  justify-content: center;
 }
 
 #value-weight {
   width: 58px;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 #value-height {
   width: 45px;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 #weight,
 #height {
   height: 70px;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
+#height img{
+  width: 24px;
+}
 
 #line-separator {
   width: 2px;
   height: 70px;
   background-color: var(--borderColorInput);
+  margin-right: 10px;
 }
 
 .text-characteristics {
@@ -216,7 +231,7 @@ header {
   justify-content: center;
   align-items: center;
   height: 44px;
-  gap: 20px;
+  gap: 8px;
 }
 
 .icon img {
