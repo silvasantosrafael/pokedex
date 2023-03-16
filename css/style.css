@@ -183,11 +183,11 @@ header {
 
 #weight {
   border-right: 2px solid var(--borderColorInput);
-  padding-right: 50px;
+  padding-right: 40px;
 }
 
 #height {
-  padding-left: 50px;
+  padding-left: 20px;
 }
 
 .icon {
@@ -257,7 +257,7 @@ header {
 
 .stat-value {
   width: 60px;
-  text-align: right;
+  text-align: justify;
   padding-left: 15px;
   padding-right: 12px;
   font-weight: 700;

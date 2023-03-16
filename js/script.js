@@ -85,21 +85,30 @@ const insertPokemonTypes = pokemon => {
   })
 }
 
-const calculateWeightAndHeight = (weight, height) => {
+/**
+ * Função que converte o peso para KG e altura para M. 
+ * 
+ * @param value Peso ou altura do pokémon
+ * @returns Retorna o valor dividido por 10
+ */
+const calculateWeightOrHeight = value => value / 10
 
-}
-
+/**
+ * Função que insere as características do pokémon
+ * 
+ * @param pokemon Dados do pokemon obtidos da API 
+ */
 const insertPokemonCharacteristics = pokemon => {
   about.innerHTML = ''
   about.innerHTML =
     `<h3 id="sub-title-about">About</h3>
     <div id="specs">
       <div id="weight" class="characteristics">
-        <span class="icon"><img src="./assets/icon-weight.svg" alt="weight">${pokemon.weight} kg</span>
+        <span class="icon"><img src="./assets/icon-weight.svg" alt="weight">${calculateWeightOrHeight(pokemon.weight)} kg</span>
         <span class="text-characteristics">Weight</span>
       </div>
       <div id="height" class="characteristics">
-        <span class="icon"><img src="./assets/icon-scaler.svg" alt="scaler">${pokemon.height} m</span>
+        <span class="icon"><img src="./assets/icon-scaler.svg" alt="scaler">${calculateWeightOrHeight(pokemon.height)} m</span>
         <span class="text-characteristics">Height</span>
       </div>
     </div>
