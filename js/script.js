@@ -4,6 +4,7 @@ const pokemonName = document.querySelector('#pokemon-name')
 const pokemonId = document.querySelector('#pokemon-id')
 const imagePlaceholder = document.querySelector('#image-placeholder')
 const types = document.querySelector('#types')
+const about = document.querySelector('#about')
 const stats = document.querySelector('#stats')
 const pokedex = document.querySelector('#pokedex')
 const baseStat = document.querySelector('#base-stat')
@@ -26,7 +27,7 @@ const fetchPokemon = async value => {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${value}`)
   if (!validateResponseStatus(response)) {
     messageModal(POKEMON_NOT_FOUND)
-    
+
     return null
   }
   const pokemon = response.json()
@@ -85,6 +86,36 @@ const insertPokemonTypes = pokemon => {
 }
 
 /**
+ * Função que converte o peso para KG e altura para M. 
+ * 
+ * @param value Peso ou altura do pokémon
+ * @returns Retorna o valor dividido por 10
+ */
+const calculateWeightOrHeight = value => value / 10
+
+/**
+ * Função que insere as características do pokémon
+ * 
+ * @param pokemon Dados do pokemon obtidos da API 
+ */
+const insertPokemonCharacteristics = pokemon => {
+  about.innerHTML = ''
+  about.innerHTML =
+    `<h3 id="sub-title-about">About</h3>
+    <div id="specs">
+      <div id="weight" class="characteristics">
+        <span class="icon"><img src="./assets/icon-weight.svg" alt="weight">${calculateWeightOrHeight(pokemon.weight)} kg</span>
+        <span class="text-characteristics">Weight</span>
+      </div>
+      <div id="height" class="characteristics">
+        <span class="icon"><img src="./assets/icon-scaler.svg" alt="scaler">${calculateWeightOrHeight(pokemon.height)} m</span>
+        <span class="text-characteristics">Height</span>
+      </div>
+    </div>
+  </div>`
+}
+
+/**
  * Função que calcula o valor correto para inserir
  * 
  * @param value Valor base stat do pokémon
@@ -104,7 +135,7 @@ const calculateStatValue = value => {
  * @param pokemon Dados do pokemon obtidos da API
  */
 const createTemplateHTMLAndSetPokemonBaseStats = pokemon => {
-  stats.innerHTML = `<h3>Base Stats</h3>`
+  stats.innerHTML = `<h3 id="sub-title-base-stat">Base Stats</h3>`
   pokemon.stats.forEach(st => {
     stats.innerHTML +=
       `<div class="stat-row">
@@ -127,7 +158,7 @@ const createTemplateHTMLAndSetPokemonBaseStats = pokemon => {
  * @param pokemon Dados do pokemon obtidos da API
  */
 const setPokemonBaseStats = pokemon => {
-  const titleH3 = document.querySelector('h3')
+  const titleH3 = document.querySelector('#sub-title-base-stat')
   const statDesc = document.querySelectorAll('.stat-desc')
   const statValue = document.querySelectorAll('.stat-value')
   const barOuter = document.querySelectorAll('.bar-outer')
@@ -264,6 +295,7 @@ const init = async () => {
   insertNameAndIdPokemon(pokemon)
   insertPokemonImage(pokemon)
   insertPokemonTypes(pokemon)
+  insertPokemonCharacteristics(pokemon)
   insertPokemonBaseStats(pokemon)
   cleanInputText()
 }
