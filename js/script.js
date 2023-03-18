@@ -9,6 +9,9 @@ const stats = document.querySelector('#stats')
 const pokedex = document.querySelector('#pokedex')
 const baseStat = document.querySelector('#base-stat')
 const pokemonData = document.querySelector('#pokemon-data')
+const conteinerNav = document.querySelector('#conteiner-pokemon-nav')
+const arrowLeft = document.querySelector('#arro-left')
+const arrowRight = document.querySelector('#arro-right')
 
 const MAX_STAT_VALUE = 255
 const POKEMON_NOT_FOUND = 'Pokémon not found'
@@ -65,6 +68,7 @@ const insertPokemonImage = pokemon => {
   img.setAttribute('id', 'pokemon-image')
   img.setAttribute('alt', pokemon.name)
   img.src = image
+  conteinerNav.classList.remove('hiden')
   imagePlaceholder.innerHTML = ''
   imagePlaceholder.appendChild(img)
 }
@@ -96,7 +100,7 @@ const calculateWeightOrHeight = value => value / 10
 /**
  * Função que cria os elementos HTML das caracteristicas básicas do pokémon
  */
-const createTemplateHTMLPokemonCharacteristics = () => {
+const createTemplateHTMLAboutPokemon = () => {
   about.innerHTML = ''
   about.innerHTML =
     `<h3 id="sub-title-about">About</h3>
@@ -130,9 +134,9 @@ const createTemplateHTMLPokemonCharacteristics = () => {
  * 
  * @param pokemon Dados do pokemon obtidos da API 
  */
-const insertPokemonCharacteristics = pokemon => {
+const insertAboutPokemon = pokemon => {
  
-  createTemplateHTMLPokemonCharacteristics()
+  createTemplateHTMLAboutPokemon()
 
   const subTitleAbout = document.querySelector('#sub-title-about')
   const abilitiesTexts = document.querySelector('#abilities-texts')
@@ -332,7 +336,7 @@ const init = async () => {
   insertNameAndIdPokemon(pokemon)
   insertPokemonImage(pokemon)
   insertPokemonTypes(pokemon)
-  insertPokemonCharacteristics(pokemon)
+  insertAboutPokemon(pokemon)
   insertPokemonBaseStats(pokemon)
   cleanInputText()
 }

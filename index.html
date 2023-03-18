@@ -29,23 +29,32 @@
     <input id="input-text" type="text" placeholder="Input a pokemon name or ID">
     <img id="img-search" src="./assets/search.png" alt="search">
   </div>
-  <div id="frame">
-    <div id="pokedex">
-      <div id="top">
-        <div id="header-top">
-          <span id="pokemon-name"></span>
-          <span id="pokemon-id"></span>
+  <div class="container">
+    <div id="frame">
+      <div id="pokedex">
+        <div id="top">
+          <div id="header-top">
+            <span id="pokemon-name"></span>
+            <span id="pokemon-id"></span>
+          </div>
+          <div id="conteiner-pokemon-nav" class="hiden">
+            <div>
+              <img id="arrow-left" class="arrow-nav" src="./assets/arrow-left.svg" alt="left">
+            </div>
+            <div id="image-placeholder"></div>
+            <div>
+              <img id="arrow-right" class="arrow-nav" src="./assets/arrow-right.svg" alt="right">
+            </div>
+          </div>
         </div>
-        <div id="image-placeholder"></div>
-      </div>
-      <div id="pokemon-data">
-        <div id="types"></div>
-        <div id="about"></div>
-        <div id="stats"></div>
+        <div id="pokemon-data">
+          <div id="types" class="hiden"></div>
+          <div id="about" class="hiden"></div>
+          <div id="stats" class="hiden"></div>
+        </div>
       </div>
     </div>
   </div>
-
 </body>
 
 </html>

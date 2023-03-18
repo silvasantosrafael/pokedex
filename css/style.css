@@ -148,6 +148,10 @@ header {
   text-transform: capitalize;
 }
 
+.hiden {
+  display: none;
+}
+
 #top {
   height: 35%;
   background: url(../assets/pokeball.svg);
@@ -156,14 +160,30 @@ header {
   background-size: 430px;
 }
 
+#conteiner-pokemon-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+}
+
+.arrow-nav {
+  width: 16px;
+  cursor: pointer;
+}
+
+#conteiner-pokemon-nav.hiden {
+  display: none;
+}
+
 #image-placeholder {
   display: flex;
   justify-content: center;
 }
 
 #pokemon-image {
-  width: 200px;
-  height: 200px;
+  width: 190px;
+  height: 190px;
 }
 
 #pokemon-data {
@@ -175,10 +195,6 @@ header {
   justify-content: space-evenly;
   background-color: var(--fontColorWhite);
   border-radius: 8px;
-}
-
-#pokemon-data .hide {
-  display: none;
 }
 
 #about {
