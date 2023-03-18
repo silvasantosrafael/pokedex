@@ -94,11 +94,9 @@ const insertPokemonTypes = pokemon => {
 const calculateWeightOrHeight = value => value / 10
 
 /**
- * Função que insere as características do pokémon
- * 
- * @param pokemon Dados do pokemon obtidos da API 
+ * Função que cria os elementos HTML das caracteristicas básicas do pokémon
  */
-const insertPokemonCharacteristics = pokemon => {
+const createTemplateHTMLPokemonCharacteristics = () => {
   about.innerHTML = ''
   about.innerHTML =
     `<h3 id="sub-title-about">About</h3>
@@ -106,23 +104,52 @@ const insertPokemonCharacteristics = pokemon => {
       <div id="weight" class="characteristics">
         <span class="icon">
           <img src="./assets/icon-weight.svg" alt="weight">
-          <span id="value-weight">${calculateWeightOrHeight(pokemon.weight)} kg</span>
+          <span id="value-weight"></span>
         </span>
         <span class="text-characteristics">Weight</span>
       </div>
-      <div id="line-separator"></div>
+      <div class="line-separator"></div>
       <div id="height" class="characteristics">
         <span class="icon">
         <img src="./assets/icon-scaler.svg" alt="scaler">
-        <span id="value-height">${calculateWeightOrHeight(pokemon.height)} m</span>
+        <span id="value-height"></span>
         </span>
         <span class="text-characteristics">Height</span>
       </div>
+      <div class="line-separator"></div>
+      <div id="abilities" class="characteristics">
+        <div id="abilities-texts"></div>
+        <span class="text-characteristics">Abilities</span>
+      </div>
     </div>
   </div>`
+}
+
+/**
+ * Função que insere as características do pokémon
+ * 
+ * @param pokemon Dados do pokemon obtidos da API 
+ */
+const insertPokemonCharacteristics = pokemon => {
+ 
+  createTemplateHTMLPokemonCharacteristics()
 
   const subTitleAbout = document.querySelector('#sub-title-about')
+  const abilitiesTexts = document.querySelector('#abilities-texts')
+  const valueWeight = document.querySelector('#value-weight')
+  const valueHeight = document.querySelector('#value-height')
+
   subTitleAbout.style.color = `var(--${pokemon.types[0].type.name})`
+  valueWeight.innerText = `${calculateWeightOrHeight(pokemon.weight)} kg` 
+  valueHeight.innerText = `${calculateWeightOrHeight(pokemon.height)} m`
+
+  abilitiesTexts.innerHTML = ''
+  pokemon.abilities.forEach(ab => {
+    const ability = document.createElement('span')
+    ability.classList.add('ability')
+    ability.innerText = `${ab.ability.name}`
+    abilitiesTexts.append(ability)
+  })
 }
 
 /**
