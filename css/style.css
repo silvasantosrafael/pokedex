@@ -127,6 +127,7 @@ header {
   background-color: var(--colorDefault);
   padding: 6px;
   transition: background-color 0.3s ease-in-out;
+  
 }
 
 #header-top {
@@ -153,11 +154,12 @@ header {
 }
 
 #top {
-  height: 35%;
+  height: 100%;
   background: url(../assets/pokeball.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 430px;
+  transition: 0.3s;
 }
 
 #conteiner-pokemon-nav {
@@ -186,10 +188,14 @@ header {
   height: 190px;
 }
 
-#pokemon-data {
+#pokemon-data.hiden {
+  display: none;
+}
+
+#pokemon-data{
+  display: flex;
   height: 64%;
   margin-top: 6px;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;

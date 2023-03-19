@@ -10,8 +10,9 @@ const pokedex = document.querySelector('#pokedex')
 const baseStat = document.querySelector('#base-stat')
 const pokemonData = document.querySelector('#pokemon-data')
 const conteinerNav = document.querySelector('#conteiner-pokemon-nav')
-const arrowLeft = document.querySelector('#arro-left')
-const arrowRight = document.querySelector('#arro-right')
+const arrowLeft = document.querySelector('#arrow-left')
+const arrowRight = document.querySelector('#arrow-right')
+const topCard = document.querySelector('#top')
 
 const MAX_STAT_VALUE = 255
 const POKEMON_NOT_FOUND = 'Pokémon not found'
@@ -69,6 +70,7 @@ const insertPokemonImage = pokemon => {
   img.setAttribute('alt', pokemon.name)
   img.src = image
   conteinerNav.classList.remove('hiden')
+  
   imagePlaceholder.innerHTML = ''
   imagePlaceholder.appendChild(img)
 }
@@ -135,7 +137,7 @@ const createTemplateHTMLAboutPokemon = () => {
  * @param pokemon Dados do pokemon obtidos da API 
  */
 const insertAboutPokemon = pokemon => {
- 
+
   createTemplateHTMLAboutPokemon()
 
   const subTitleAbout = document.querySelector('#sub-title-about')
@@ -144,7 +146,7 @@ const insertAboutPokemon = pokemon => {
   const valueHeight = document.querySelector('#value-height')
 
   subTitleAbout.style.color = `var(--${pokemon.types[0].type.name})`
-  valueWeight.innerText = `${calculateWeightOrHeight(pokemon.weight)} kg` 
+  valueWeight.innerText = `${calculateWeightOrHeight(pokemon.weight)} kg`
   valueHeight.innerText = `${calculateWeightOrHeight(pokemon.height)} m`
 
   abilitiesTexts.innerHTML = ''
@@ -262,13 +264,12 @@ const validateText = text => {
 const formattedNumeral = number => number.toString().padStart(3, 0)
 
 /**
- * Função que formata o texto obtido no input
+ * Função que formata um valor obtido
  * 
  * @returns Texto formatado digitado no input
  */
-const formattedInputText = () => {
-  const value = inputText.value.toLowerCase().trim().split(' ').join('-')
-
+const formattedInputText = value => {
+  value.toString().toLowerCase().trim().split(' ').join('-')
   return value
 }
 
@@ -318,20 +319,34 @@ const messageModal = value => {
  */
 const cleanInputText = () => inputText.value = ''
 
+
+const getPokemonId = () => {
+  const id = Math.abs(pokemonId.innerText.slice(1))
+  return id
+}
+
+const toggleArrowLeft = () => {
+  const id = getPokemonId()
+  if (id > 1 ){
+    arrowLeft.classList.remove('hiden')
+  } else {
+    arrowLeft.classList.add('hiden')
+  }
+}
+
 /**
  * Função principal que invoca as demais funções
  * 
  * @returns Retorna para a função chamadora
  */
-const init = async () => {
-  const value = formattedInputText()
-  if (!validateText(value)) {
-    return
-  }
+const init = async (value) => {
+  value = formattedInputText(value)
   const pokemon = await fetchPokemon(value)
   if (pokemon == null) {
     return
   }
+  pokemonData.classList.remove('hiden')
+  topCard.style.height = '35%'
   setPokedexAccentColor(pokemon)
   insertNameAndIdPokemon(pokemon)
   insertPokemonImage(pokemon)
@@ -339,6 +354,7 @@ const init = async () => {
   insertAboutPokemon(pokemon)
   insertPokemonBaseStats(pokemon)
   cleanInputText()
+  toggleArrowLeft()
 }
 
 /**
@@ -346,7 +362,10 @@ const init = async () => {
  * o nome do pokémon ou ID
  */
 imgSearch.addEventListener('click', () => {
-  init()
+  if (!validateText(inputText.value)) {
+    return
+  }
+  init(inputText.value)
 })
 
 /**
@@ -354,6 +373,19 @@ imgSearch.addEventListener('click', () => {
  */
 inputText.addEventListener('keydown', event => {
   if (event.keyCode === 13) {
-    init()
+    if (!validateText(inputText.value)) {
+      return
+    }
+    init(inputText.value)
   }
+})
+
+arrowLeft.addEventListener('click', () => {
+  const id = getPokemonId() - 1
+  init(id)
+})
+
+arrowRight.addEventListener('click', () => {
+  const id = getPokemonId() + 1
+  init(id)
 })
