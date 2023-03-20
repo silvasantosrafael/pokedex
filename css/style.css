@@ -67,15 +67,12 @@ body {
 }
 
 header {
+  display: flex;
+  justify-content: center;
   padding: 10px 0;
   margin-bottom: 40px;
   background-color: var(--backgroundHeader);
   box-shadow: 1px 2px 3px var(--boxShadow);
-}
-
-header {
-  display: flex;
-  justify-content: center;
 }
 
 #search {
@@ -258,7 +255,7 @@ header {
 }
 
 #value-weight {
-  width: 52px;
+  width: 60px;
   font-size: 0.9rem;
   text-align: start;
 }
