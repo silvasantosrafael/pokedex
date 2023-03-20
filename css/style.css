@@ -120,10 +120,24 @@ header {
   width: 42px;
   height: 42px;
   background-color: var(--backgroundHeader);
+  opacity: 0.8;
+  transition: 0.3s ease-in-out;
+}
+
+.container-nav-arrow:hover{
+  opacity: 1;
 }
 
 .container-nav-arrow-left.hiden {
   display: none;
+}
+
+#arrow-left {
+  margin-right: 4px;
+}
+
+#arrow-right {
+  margin-left: 4px;
 }
 
 .arrow-nav {
@@ -136,7 +150,6 @@ header {
   justify-content: center;
   align-items: center;
   gap: 40px;
-
 }
 
 #frame {
