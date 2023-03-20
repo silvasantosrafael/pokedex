@@ -108,12 +108,42 @@ header {
   cursor: pointer;
 }
 
+.container-left {
+  width: 42px;
+}
+
+.container-nav-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 22px;
+  width: 42px;
+  height: 42px;
+  background-color: var(--backgroundHeader);
+}
+
+.container-nav-arrow-left.hiden {
+  display: none;
+}
+
+.arrow-nav {
+  width: 16px;
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+
+}
+
 #frame {
   display: flex;
   justify-content: center;
-  width: 460px;
+  width: 490px;
   height: 690px;
-  margin: auto;
   background-color: var(--backgroundWhite);
   border-radius: 16px;
   padding: 10px;
@@ -122,12 +152,11 @@ header {
 
 #pokedex {
   min-height: 670px;
-  min-width: 440px;
+  min-width: 470px;
   border-radius: 12px;
   background-color: var(--colorDefault);
   padding: 6px;
   transition: background-color 0.3s ease-in-out;
-  
 }
 
 #header-top {
@@ -159,7 +188,6 @@ header {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 430px;
-  transition: 0.3s;
 }
 
 #conteiner-pokemon-nav {
@@ -167,11 +195,6 @@ header {
   justify-content: center;
   align-items: center;
   gap: 60px;
-}
-
-.arrow-nav {
-  width: 16px;
-  cursor: pointer;
 }
 
 #conteiner-pokemon-nav.hiden {
@@ -192,7 +215,7 @@ header {
   display: none;
 }
 
-#pokemon-data{
+#pokemon-data {
   display: flex;
   height: 64%;
   margin-top: 6px;
@@ -206,7 +229,7 @@ header {
 #about {
   display: flex;
   flex-direction: column;
-  width: 360px;
+  width: 370px;
 }
 
 #sub-title-about {
