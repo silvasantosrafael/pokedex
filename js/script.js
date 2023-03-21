@@ -33,10 +33,10 @@ const fetchPokemon = async value => {
   const pokemon = response.json()
 
   return pokemon
-}
+} 
 
-const setPokedexAccentColor = pokemon => {
-  pokedex.style.backgroundColor = `var(--${pokemon.types[0].type.name})`
+const setPokedexAccentColor = ({types}) => {
+  pokedex.style.backgroundColor = `var(--${types[0].type.name})`
 }
 
 const insertNameAndIdPokemon = pokemon => {
@@ -44,11 +44,11 @@ const insertNameAndIdPokemon = pokemon => {
   pokemonId.innerText = '#' + formattedNumeral(pokemon.id)
 }
 
-const insertPokemonImage = pokemon => {
+const insertPokemonImage = ({sprites, name}) => {
   const img = document.createElement('img')
-  const image = pokemon.sprites.other["official-artwork"].front_default
+  const image = sprites.other["official-artwork"].front_default
   img.setAttribute('id', 'pokemon-image')
-  img.setAttribute('alt', pokemon.name)
+  img.setAttribute('alt', name)
   img.src = image
   conteinerNav.classList.remove('hiden')
 
@@ -101,21 +101,21 @@ const createTemplateHTMLAboutPokemon = () => {
 const insertPokemonAbilities = pokemon => {
   const abilitiesTexts = document.querySelector('#abilities-texts')
   const uniqueNameAbility = new Set()
-  
+
   abilitiesTexts.innerHTML = ''
   pokemon.abilities.forEach(ab => {
     uniqueNameAbility.add(ab.ability.name)
   })
 
   const abilitiesPokemon = Array.from(uniqueNameAbility)
-  
+
   abilitiesPokemon.forEach(abilityPokemon => {
     const ability = document.createElement('span')
     ability.classList.add('ability')
     ability.innerText = `${abilityPokemon}`
     abilitiesTexts.append(ability)
   })
-} 
+}
 
 const insertAboutPokemon = pokemon => {
 
@@ -158,20 +158,20 @@ const createTemplateHTMLAndSetPokemonBaseStats = pokemon => {
   setPokemonBaseStats(pokemon)
 }
 
-const setPokemonBaseStats = pokemon => {
+const setPokemonBaseStats = ({stats, types}) => {
   const titleH3 = document.querySelector('#sub-title-base-stat')
   const statDesc = document.querySelectorAll('.stat-desc')
   const statValue = document.querySelectorAll('.stat-value')
   const barOuter = document.querySelectorAll('.bar-outer')
   const barInner = document.querySelectorAll('.bar-inner')
 
-  titleH3.style.color = `var(--${pokemon.types[0].type.name})`
-  pokemon.stats.forEach((st, index) => {
+  titleH3.style.color = `var(--${types[0].type.name})`
+  stats.forEach((st, index) => {
     statDesc[index].innerText = `${st.stat.name.toUpperCase()}`
-    statDesc[index].style.color = `var(--${pokemon.types[0].type.name})`
+    statDesc[index].style.color = `var(--${types[0].type.name})`
     statValue[index].innerText = `${formattedNumeral(st.base_stat)}`
-    barOuter[index].style.backgroundColor = `var(--${pokemon.types[0].type.name + 'Alpha'})`
-    barInner[index].style.backgroundColor = `var(--${pokemon.types[0].type.name})`
+    barOuter[index].style.backgroundColor = `var(--${types[0].type.name + 'Alpha'})`
+    barInner[index].style.backgroundColor = `var(--${types[0].type.name})`
     barInner[index].style.width = `${calculateStatValue(st.base_stat)}%`
   })
 }
@@ -245,8 +245,8 @@ const toggleArrowLeft = () => {
 const init = async (value) => {
   value = formattedInputText(value)
   const pokemon = await fetchPokemon(value)
-  if (pokemon == null) {
-    return
+  if (!pokemon) {
+     return
   }
   pokemonData.classList.remove('hiden')
   topCard.style.height = '35%'
