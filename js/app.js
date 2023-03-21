@@ -14,7 +14,7 @@ const fetchPokemon = () => {
         const srcImg = pokemon.sprites.other['official-artwork'].front_default
         acc +=
           `  <div class="card">
-          <div class="image">
+          <div class="image" style="background-color: var(--${pokemon.types[0].type.name})">
             <img src="${srcImg}" alt="">
           </div>
           <div class="id">Nº ${pokemon.id.toString().padStart(4, 0)}</div>
