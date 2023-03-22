@@ -16,9 +16,55 @@ const topCard = document.querySelector('#top')
 const containerNavArrowLeft = document.querySelector('#container-nav-arrow-left')
 const frame = document.querySelector('#frame')
 
+
 const MAX_STAT_VALUE = 255
 const POKEMON_NOT_FOUND = 'Pokémon not found'
 const NO_TEXT_INPUT = 'Insert a pokémon name or ID'
+
+
+const fetchAllPokemon = () => {
+  const generateURL = id => `https://pokeapi.co/api/v2/pokemon/${id}`
+  const pokemonPromises = []
+  for (let index = 1; index <= 1010; index++) {
+    pokemonPromises.push(fetch(generateURL(index)).then(response => response.json()))
+  }
+
+  Promise.all(pokemonPromises)
+    .then(pokemon => {
+      const responsePokemon = pokemon.reduce((acc, pokemon, index) => {
+        const srcImg = pokemon.sprites.other['official-artwork'].front_default
+        acc +=
+          `  <div class="card">
+          <div data-card="${index + 1}" class="image" style="background-color: var(--${pokemon.types[0].type.name})">
+            <img data-card="${index + 1}" src="${srcImg}" alt="">
+          </div>
+          <div data-card="${index + 1}" class="id">Nº ${pokemon.id.toString().padStart(4, 0)}</div>
+          <div data-card="${index + 1}" class="name">${pokemon.name}</div>
+          <div data-card="${index + 1}" class="types">${pokemon.types.map(tp => `<span data-card="${index + 1}" class="type" style="background-color: var(--${tp.type.name})"">${tp.type.name}</span>`).join(' ')}</div>
+        </div>`
+
+        return acc
+      }, '')
+
+      const pokemonDiv = document.querySelector('[data-js="pokemon"]')
+      pokemonDiv.innerHTML = ''
+      pokemonDiv.innerHTML = responsePokemon
+
+      const card = document.querySelector('[data-js="pokemon"]')
+      card.addEventListener('click', event => {
+        const showAll = document.querySelectorAll('.hiden')
+        const container = document.querySelector('.container')
+        pokemonDiv.classList.add('hiden')
+        container.classList.remove('show-all-pokemons')
+        showAll.forEach(item => {
+          item.classList.toggle('hiden')
+        })
+        init(event.target.dataset.card);
+      })
+    })
+}
+
+fetchAllPokemon()
 
 
 const validateResponseStatus = response => response.status == 200
@@ -33,18 +79,18 @@ const fetchPokemon = async value => {
   const pokemon = response.json()
 
   return pokemon
-} 
+}
 
-const setPokedexAccentColor = ({types}) => {
+const setPokedexAccentColor = ({ types }) => {
   pokedex.style.backgroundColor = `var(--${types[0].type.name})`
 }
 
 const insertNameAndIdPokemon = pokemon => {
   pokemonName.innerText = pokemon.name.toUpperCase()
-  pokemonId.innerText = '#' + formattedNumeral(pokemon.id)
+  pokemonId.innerText = 'Nº ' + formattedNumeral(pokemon.id)
 }
 
-const insertPokemonImage = ({sprites, name}) => {
+const insertPokemonImage = ({ sprites, name }) => {
   const img = document.createElement('img')
   const image = sprites.other["official-artwork"].front_default
   img.setAttribute('id', 'pokemon-image')
@@ -158,7 +204,7 @@ const createTemplateHTMLAndSetPokemonBaseStats = pokemon => {
   setPokemonBaseStats(pokemon)
 }
 
-const setPokemonBaseStats = ({stats, types}) => {
+const setPokemonBaseStats = ({ stats, types }) => {
   const titleH3 = document.querySelector('#sub-title-base-stat')
   const statDesc = document.querySelectorAll('.stat-desc')
   const statValue = document.querySelectorAll('.stat-value')
@@ -196,7 +242,7 @@ const validateText = text => {
   return true
 }
 
-const formattedNumeral = number => number.toString().padStart(3, 0)
+const formattedNumeral = number => number.toString().padStart(4, 0)
 
 const formattedInputText = value => {
   value.toString().toLowerCase().trim().split(' ').join('-')
@@ -229,7 +275,7 @@ const messageModal = value => {
 const cleanInputText = () => inputText.value = ''
 
 const getPokemonId = () => {
-  const id = Math.abs(pokemonId.innerText.slice(1))
+  const id = Math.abs(pokemonId.innerText.slice(3))
   return id
 }
 
@@ -246,10 +292,10 @@ const init = async (value) => {
   value = formattedInputText(value)
   const pokemon = await fetchPokemon(value)
   if (!pokemon) {
-     return
+    return
   }
   pokemonData.classList.remove('hiden')
-  topCard.style.height = '35%'
+  topCard.style.height = '43%'
   setPokedexAccentColor(pokemon)
   insertNameAndIdPokemon(pokemon)
   insertPokemonImage(pokemon)
@@ -282,7 +328,12 @@ arrowLeft.addEventListener('click', () => {
 })
 
 arrowRight.addEventListener('click', () => {
-
   const id = getPokemonId() + 1
   init(id)
+})
+
+const pokemonLogo = document.querySelector('#pokemon-logo')
+
+pokemonLogo.addEventListener('click', () => {
+  fetchAllPokemon()
 })

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pokédex</title>
   <link rel="stylesheet" href="./css/style.css">
-  <script src="./js/script.js" defer></script>
+  <script type="module" src="./js/script.js" defer></script>
 </head>
 
 <body>
@@ -25,18 +25,19 @@
       <h1><img id="pokemon-logo" src="./assets/pokemon-logo.png" alt="pokemon-logo"></h1>
     </div>
   </header>
-  <div id="search">
+  <div id="search" class="hiden">
     <input id="input-text" type="text" placeholder="Input a pokemon name or ID">
     <img id="img-search" src="./assets/search.png" alt="search">
   </div>
-  <div class="container">
-    <div class="container-left">
+  <div class="container show-all-pokemons">
+    <div data-js="pokemon" class="pokemons"></div>
+    <div class="container-left hiden">
       <div id="container-nav-arrow-left" class="container-nav-arrow hiden">
         <img id="arrow-left" class="arrow-nav" src="./assets/arrow-left.svg" alt="left">
       </div>
     </div>
-    <div id="frame">
-      <div id="pokedex">
+    <div id="frame" class="hiden">
+      <div id="pokedex" class="hiden">
         <div id="top">
           <div id="header-top">
             <span id="pokemon-name"></span>
@@ -53,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div class="container-nav-arrow">
+    <div class="container-nav-arrow hiden">
       <img id="arrow-right" class="arrow-nav" src="./assets/arrow-right.svg" alt="right">
     </div>
   </div>

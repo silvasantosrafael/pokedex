@@ -64,6 +64,7 @@ body {
   align-items: center;
   width: 230px;
   height: 80px;
+  cursor: pointer;
 }
 
 header {
@@ -85,6 +86,10 @@ header {
   margin-bottom: 30px;
   border-radius: 10px;
   border: 1px solid var(--borderColorInput);
+}
+
+#search.hiden {
+  display: none;
 }
 
 #search input {
@@ -160,6 +165,10 @@ header {
   box-shadow: 0px 0px 4px;
 }
 
+#frame.hiden {
+  display: none;
+}
+
 #pokedex {
   min-height: 670px;
   min-width: 470px;
@@ -217,8 +226,8 @@ header {
 }
 
 #pokemon-image {
-  width: 190px;
-  height: 190px;
+  width: 250px;
+  height: 250px;
 }
 
 #pokemon-data.hiden {
@@ -227,13 +236,14 @@ header {
 
 #pokemon-data {
   display: flex;
-  height: 64%;
+  height: 56%;
   margin-top: 6px;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   background-color: var(--fontColorWhite);
   border-radius: 8px;
+  gap: 25px;
 }
 
 #about {
@@ -244,7 +254,7 @@ header {
 
 #sub-title-about {
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 #specs {
@@ -463,4 +473,103 @@ button:hover {
 
 #modal.hide {
   top: 35%;
+}
+
+.container.show-all-pokemons{
+  padding: 40px;
+  display: block;
+}
+
+.pokemons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  padding-inline-start: 0;
+}
+
+.pokemons.hiden {
+  display: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--backgroundWhite);
+  width: 240px;
+  height: 308px;
+  position: relative;
+  border-radius: 6px;
+  box-shadow: 0px 0px 3px 0px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.card .image {
+  background-image: url(../assets/pokeball.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  border-radius: 6px;
+  justify-content: center;
+  margin-bottom: 2px;
+}
+
+.card .image img {
+  width: 215px;
+  height: 215px;
+}
+
+.card .id {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #6e6b6b;
+  margin-left: 6px;
+  margin-bottom: 10px;
+}
+
+.card .name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-left: 6px;
+  margin-bottom: 2px;
+}
+
+.card .types {
+  margin-left: 6px;
+}
+
+.card .type {
+  display: inline-block;
+  padding: 2px;
+  background-color: var(--colorDefault);
+  width: 100px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: capitalize;
+  color: #FFF;
+}
+
+.card:hover {
+  animation: bounce 0.5s linear;
+}
+
+@keyframes bounce {
+  20% {
+    transform: translateY(-6px);
+  }
+
+  40% {
+    transform: translateY(0px);
+  }
+
+  80% {
+    transform: translateY(-2px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
