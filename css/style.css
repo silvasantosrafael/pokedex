@@ -76,14 +76,24 @@ header {
   box-shadow: 1px 2px 3px var(--boxShadow);
 }
 
+.container-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.container-menu .button-back {
+  position: absolute;
+  left: 25%;
+}
+
 #search {
   display: flex;
   align-items: center;
   width: 370px;
   background-color: var(--backgroundHeader);
   gap: 11px;
-  margin: auto;
-  margin-bottom: 30px;
   border-radius: 10px;
   border: 1px solid var(--borderColorInput);
 }
@@ -121,6 +131,7 @@ header {
   border-radius: 22px;
   width: 42px;
   height: 42px;
+  cursor: pointer;
   background-color: var(--backgroundHeader);
   opacity: 0.8;
   transition: 0.3s ease-in-out;
@@ -144,7 +155,6 @@ header {
 
 .arrow-nav {
   width: 16px;
-  cursor: pointer;
 }
 
 .container {
@@ -520,7 +530,7 @@ button:hover {
 }
 
 .card .id {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #6e6b6b;
   margin-left: 6px;
@@ -528,7 +538,7 @@ button:hover {
 }
 
 .card .name {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 600;
   text-transform: capitalize;
   margin-left: 6px;

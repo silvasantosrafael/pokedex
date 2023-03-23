@@ -25,10 +25,15 @@
       <h1><img id="pokemon-logo" src="./assets/pokemon-logo.png" alt="pokemon-logo"></h1>
     </div>
   </header>
-  <div id="search" class="hiden">
-    <input id="input-text" type="text" placeholder="Input a pokemon name or ID">
-    <img id="img-search" src="./assets/search.png" alt="search">
+
+  <div class="container-menu hiden">
+    <span class="button-back"><button>All Pokémons</button></span>
+    <div id="search">
+      <input id="input-text" type="text" placeholder="Input a pokemon name or ID">
+      <img id="img-search" src="./assets/search.png" alt="search">
+    </div>
   </div>
+
   <div class="container show-all-pokemons">
     <div data-js="pokemon" class="pokemons"></div>
     <div class="container-left hiden">
@@ -54,7 +59,7 @@
         </div>
       </div>
     </div>
-    <div class="container-nav-arrow hiden">
+    <div id="container-nav-arrow-right" class="container-nav-arrow hiden">
       <img id="arrow-right" class="arrow-nav" src="./assets/arrow-right.svg" alt="right">
     </div>
   </div>

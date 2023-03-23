@@ -1,5 +1,10 @@
+const pokemonLogo = document.querySelector('#pokemon-logo')
+const containerMenu = document.querySelector('.container-menu')
+const buttonBack = document.querySelector('.button-back')
 const imgSearch = document.querySelector('#img-search')
 const inputText = document.querySelector('#input-text')
+const container = document.querySelector('.container')
+const frame = document.querySelector('#frame')
 const pokemonName = document.querySelector('#pokemon-name')
 const pokemonId = document.querySelector('#pokemon-id')
 const imagePlaceholder = document.querySelector('#image-placeholder')
@@ -10,11 +15,12 @@ const pokedex = document.querySelector('#pokedex')
 const baseStat = document.querySelector('#base-stat')
 const pokemonData = document.querySelector('#pokemon-data')
 const conteinerNav = document.querySelector('#conteiner-pokemon-nav')
-const arrowLeft = document.querySelector('#arrow-left')
-const arrowRight = document.querySelector('#arrow-right')
+const arrowLeft = document.querySelector('#container-nav-arrow-left')
+const arrowRight = document.querySelector('#container-nav-arrow-right')
 const topCard = document.querySelector('#top')
+const containerNavArrow = document.querySelectorAll('.container-nav-arrow')
 const containerNavArrowLeft = document.querySelector('#container-nav-arrow-left')
-const frame = document.querySelector('#frame')
+const allPokemons = document.querySelector('[data-js="pokemon"]')
 
 
 const MAX_STAT_VALUE = 255
@@ -22,55 +28,10 @@ const POKEMON_NOT_FOUND = 'Pokémon not found'
 const NO_TEXT_INPUT = 'Insert a pokémon name or ID'
 
 
-const fetchAllPokemon = () => {
-  const generateURL = id => `https://pokeapi.co/api/v2/pokemon/${id}`
-  const pokemonPromises = []
-  for (let index = 1; index <= 1010; index++) {
-    pokemonPromises.push(fetch(generateURL(index)).then(response => response.json()))
-  }
-
-  Promise.all(pokemonPromises)
-    .then(pokemon => {
-      const responsePokemon = pokemon.reduce((acc, pokemon, index) => {
-        const srcImg = pokemon.sprites.other['official-artwork'].front_default
-        acc +=
-          `  <div class="card">
-          <div data-card="${index + 1}" class="image" style="background-color: var(--${pokemon.types[0].type.name})">
-            <img data-card="${index + 1}" src="${srcImg}" alt="">
-          </div>
-          <div data-card="${index + 1}" class="id">Nº ${pokemon.id.toString().padStart(4, 0)}</div>
-          <div data-card="${index + 1}" class="name">${pokemon.name}</div>
-          <div data-card="${index + 1}" class="types">${pokemon.types.map(tp => `<span data-card="${index + 1}" class="type" style="background-color: var(--${tp.type.name})"">${tp.type.name}</span>`).join(' ')}</div>
-        </div>`
-
-        return acc
-      }, '')
-
-      const pokemonDiv = document.querySelector('[data-js="pokemon"]')
-      pokemonDiv.innerHTML = ''
-      pokemonDiv.innerHTML = responsePokemon
-
-      const card = document.querySelector('[data-js="pokemon"]')
-      card.addEventListener('click', event => {
-        const showAll = document.querySelectorAll('.hiden')
-        const container = document.querySelector('.container')
-        pokemonDiv.classList.add('hiden')
-        container.classList.remove('show-all-pokemons')
-        showAll.forEach(item => {
-          item.classList.toggle('hiden')
-        })
-        init(event.target.dataset.card);
-      })
-    })
-}
-
-fetchAllPokemon()
-
-
-const validateResponseStatus = response => response.status == 200
-
 const fetchPokemon = async value => {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${value}`)
+  const validateResponseStatus = response => response.status == 200
+
   if (!validateResponseStatus(response)) {
     messageModal(POKEMON_NOT_FOUND)
 
@@ -80,6 +41,51 @@ const fetchPokemon = async value => {
 
   return pokemon
 }
+
+const generatePromises = () => {
+  const pokemonPromises = []
+  for (let index = 1; index <= 1010; index++) {
+    pokemonPromises.push(fetchPokemon(index))
+  }
+  return pokemonPromises
+}
+
+const insertPokemonsIntoDOM = responses => {
+  const pokemons = responses.reduce((acc, pokemon, index) => {
+    const srcImg = pokemon.sprites.other['official-artwork'].front_default
+    acc +=
+      `  <div class="card">
+        <div data-card="${index + 1}" class="image" style="background-color: var(--${pokemon.types[0].type.name})">
+          <img data-card="${index + 1}" src="${srcImg}" alt="">
+        </div>
+        <div data-card="${index + 1}" class="id">Nº ${pokemon.id.toString().padStart(4, 0)}</div>
+        <div data-card="${index + 1}" class="name">${pokemon.name}</div>
+        <div data-card="${index + 1}" class="types">${pokemon.types.map(tp => `<span data-card="${index + 1}" class="type" style="background-color: var(--${tp.type.name})"">${tp.type.name}</span>`).join(' ')}</div>
+      </div>`
+
+    return acc
+  }, '')
+
+  allPokemons.innerHTML = ''
+  allPokemons.innerHTML = pokemons
+}
+
+const fetchAllPokemon = async () => {
+  const responsePromises = await Promise.all(generatePromises())
+  insertPokemonsIntoDOM(responsePromises)
+  
+  const showPokemon = () => {
+    const card = document.querySelectorAll('.card')
+    card.forEach(c => {
+      c.addEventListener('click', (event) => {
+        showPokemonCard(event)
+      })
+    })
+  }
+  showPokemon()
+}
+
+fetchAllPokemon()
 
 const setPokedexAccentColor = ({ types }) => {
   pokedex.style.backgroundColor = `var(--${types[0].type.name})`
@@ -215,7 +221,7 @@ const setPokemonBaseStats = ({ stats, types }) => {
   stats.forEach((st, index) => {
     statDesc[index].innerText = `${st.stat.name.toUpperCase()}`
     statDesc[index].style.color = `var(--${types[0].type.name})`
-    statValue[index].innerText = `${formattedNumeral(st.base_stat)}`
+    statValue[index].innerText = `${st.base_stat.toString().padStart(3, 0)}`
     barOuter[index].style.backgroundColor = `var(--${types[0].type.name + 'Alpha'})`
     barInner[index].style.backgroundColor = `var(--${types[0].type.name})`
     barInner[index].style.width = `${calculateStatValue(st.base_stat)}%`
@@ -288,6 +294,27 @@ const toggleArrowLeft = () => {
   }
 }
 
+const showPokemonCard = (event) => {
+  const showAll = document.querySelectorAll('.hiden')
+  allPokemons.classList.add('hiden')
+  container.classList.remove('show-all-pokemons')
+  showAll.forEach(item => {
+    item.classList.toggle('hiden')
+  })
+  init(event.target.dataset.card);
+}
+
+const showAllPokemons = () => {
+  containerMenu.classList.toggle('hiden')
+  frame.classList.toggle('hiden')
+  pokedex.classList.toggle('hiden')
+  allPokemons.classList.toggle('hiden')
+  containerNavArrow.forEach(item => {
+    item.classList.toggle('hiden')
+  })
+  container.classList.toggle('show-all-pokemons')
+}
+
 const init = async (value) => {
   value = formattedInputText(value)
   const pokemon = await fetchPokemon(value)
@@ -332,8 +359,6 @@ arrowRight.addEventListener('click', () => {
   init(id)
 })
 
-const pokemonLogo = document.querySelector('#pokemon-logo')
-
-pokemonLogo.addEventListener('click', () => {
-  fetchAllPokemon()
+buttonBack.addEventListener('click', () => {
+  showAllPokemons()
 })
