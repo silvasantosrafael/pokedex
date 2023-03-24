@@ -51,6 +51,7 @@ const generatePromises = () => {
   return pokemonPromises
 }
 
+//TODO Refatorar template string
 const insertPokemonsIntoDOM = responses => {
   const pokemons = responses.reduce((acc, pokemon, index) => {
     const srcImg = pokemon.sprites.other['official-artwork'].front_default
@@ -71,6 +72,7 @@ const insertPokemonsIntoDOM = responses => {
   allPokemons.innerHTML = pokemons
 }
 
+//TODO Refatorar função(Desacoplar função showPokemon)
 const fetchAllPokemon = async () => {
   const responsePromises = await Promise.all(generatePromises())
   insertPokemonsIntoDOM(responsePromises)
@@ -88,7 +90,7 @@ const fetchAllPokemon = async () => {
 
 fetchAllPokemon()
 
-
+//TODO Refatorar função(Desacoplar função showPokemon) e remover duplicidade de template string
 buttonLoadMore.addEventListener('click', async () => {
   const pokemonPromises = []
   const totalPokemonCards = allPokemons.querySelectorAll('.card').length
@@ -383,6 +385,7 @@ imgSearch.addEventListener('click', () => {
   init(inputText.value)
 })
 
+//TODO Refatorar função(Crescimento de código para frente)
 inputText.addEventListener('keydown', event => {
   if (event.keyCode === 13) {
     if (!validateText(inputText.value)) {
