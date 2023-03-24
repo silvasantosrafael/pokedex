@@ -21,6 +21,7 @@ const topCard = document.querySelector('#top')
 const containerNavArrow = document.querySelectorAll('.container-nav-arrow')
 const containerNavArrowLeft = document.querySelector('#container-nav-arrow-left')
 const allPokemons = document.querySelector('[data-js="pokemon"]')
+const buttonLoadMore = document.querySelector('#button-loading-more')
 
 
 const MAX_STAT_VALUE = 255
@@ -44,7 +45,7 @@ const fetchPokemon = async value => {
 
 const generatePromises = () => {
   const pokemonPromises = []
-  for (let index = 1; index <= 1010; index++) {
+  for (let index = 1; index <= 12; index++) {
     pokemonPromises.push(fetchPokemon(index))
   }
   return pokemonPromises
@@ -54,9 +55,9 @@ const insertPokemonsIntoDOM = responses => {
   const pokemons = responses.reduce((acc, pokemon, index) => {
     const srcImg = pokemon.sprites.other['official-artwork'].front_default
     acc +=
-      `  <div class="card">
+      `  <div class="card" loading="lazy">
         <div data-card="${index + 1}" class="image" style="background-color: var(--${pokemon.types[0].type.name})">
-          <img data-card="${index + 1}" src="${srcImg}" alt="">
+          <img data-card="${index + 1}" src="${srcImg}" alt="${pokemon.name}" loading="lazy"/>
         </div>
         <div data-card="${index + 1}" class="id">Nº ${pokemon.id.toString().padStart(4, 0)}</div>
         <div data-card="${index + 1}" class="name">${pokemon.name}</div>
@@ -73,7 +74,7 @@ const insertPokemonsIntoDOM = responses => {
 const fetchAllPokemon = async () => {
   const responsePromises = await Promise.all(generatePromises())
   insertPokemonsIntoDOM(responsePromises)
-  
+
   const showPokemon = () => {
     const card = document.querySelectorAll('.card')
     card.forEach(c => {
@@ -86,6 +87,46 @@ const fetchAllPokemon = async () => {
 }
 
 fetchAllPokemon()
+
+
+buttonLoadMore.addEventListener('click', async () => {
+  const pokemonPromises = []
+  const totalPokemonCards = allPokemons.querySelectorAll('.card').length
+
+  for (let index = totalPokemonCards + 1; index <= totalPokemonCards + 12; index++) {
+    pokemonPromises.push(fetchPokemon(index))
+  }
+
+  const responses = await Promise.all(pokemonPromises)
+
+  const pokemons = responses.reduce((acc, pokemon, index) => {
+    const srcImg = pokemon.sprites.other['official-artwork'].front_default
+    acc +=
+      `  <div class="card" loading="lazy">
+          <div data-card="${ index + totalPokemonCards + 1}" class="image" style="background-color: var(--${pokemon.types[0].type.name})">
+            <img data-card="${ index + totalPokemonCards + 1}" src="${srcImg}" alt="${pokemon.name}" loading="lazy"/>
+          </div>
+          <div data-card="${ index + totalPokemonCards + 1}" class="id">Nº ${pokemon.id.toString().padStart(4, 0)}</div>
+          <div data-card="${ index + totalPokemonCards + 1}" class="name">${pokemon.name}</div>
+          <div data-card="${ index + totalPokemonCards + 1}" class="types">${pokemon.types.map(tp => `<span data-card="${ index + totalPokemonCards + 1}" class="type" style="background-color: var(--${tp.type.name})"">${tp.type.name}</span>`).join(' ')}</div>
+        </div>`
+
+    return acc
+  }, '')
+
+  allPokemons.innerHTML += pokemons
+
+  const showPokemon = () => {
+    const card = document.querySelectorAll('.card')
+    console.log(card);
+    card.forEach(c => {
+      c.addEventListener('click', (event) => {
+        showPokemonCard(event)
+      })
+    })
+  }
+  showPokemon()
+})
 
 const setPokedexAccentColor = ({ types }) => {
   pokedex.style.backgroundColor = `var(--${types[0].type.name})`
@@ -296,6 +337,7 @@ const toggleArrowLeft = () => {
 
 const showPokemonCard = (event) => {
   const showAll = document.querySelectorAll('.hiden')
+  buttonLoadMore.classList.add('hiden')
   allPokemons.classList.add('hiden')
   container.classList.remove('show-all-pokemons')
   showAll.forEach(item => {
@@ -308,6 +350,7 @@ const showAllPokemons = () => {
   containerMenu.classList.toggle('hiden')
   frame.classList.toggle('hiden')
   pokedex.classList.toggle('hiden')
+  buttonLoadMore.classList.toggle('hiden')
   allPokemons.classList.toggle('hiden')
   containerNavArrow.forEach(item => {
     item.classList.toggle('hiden')

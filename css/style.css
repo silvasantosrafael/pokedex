@@ -486,15 +486,18 @@ button:hover {
 }
 
 .container.show-all-pokemons{
-  padding: 40px;
+  width: 70%;
+  margin: auto;
+  /* padding: 40px; */
   display: block;
 }
 
 .pokemons {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 40px;
   padding-inline-start: 0;
+  margin-bottom: 60px;
 }
 
 .pokemons.hiden {
@@ -564,6 +567,12 @@ button:hover {
 
 .card:hover {
   animation: bounce 0.5s linear;
+}
+
+#button-loading-more {
+  position: absolute;
+  left: 50%;
+  padding-bottom: 20px;
 }
 
 @keyframes bounce {
