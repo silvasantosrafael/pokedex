@@ -355,7 +355,7 @@ const showAllPokemons = () => {
   buttonLoadMore.classList.toggle('hiden')
   allPokemons.classList.toggle('hiden')
   containerNavArrow.forEach(item => {
-    item.classList.toggle('hiden')
+    item.classList.add('hiden')
   })
   container.classList.toggle('show-all-pokemons')
 }

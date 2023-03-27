@@ -486,9 +486,8 @@ button:hover {
 }
 
 .container.show-all-pokemons{
-  width: 70%;
+  width: 66%;
   margin: auto;
-  /* padding: 40px; */
   display: block;
 }
 
@@ -498,6 +497,7 @@ button:hover {
   gap: 40px;
   padding-inline-start: 0;
   margin-bottom: 60px;
+
 }
 
 .pokemons.hiden {
